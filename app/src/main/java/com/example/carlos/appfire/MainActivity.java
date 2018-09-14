@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GifImageView gifImageView;
     private ProgressBar progressBar;
+    private String gif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +30,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         gifImageView = (GifImageView)findViewById(R.id.gifImageView);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         progressBar.setVisibility(progressBar.VISIBLE);
 
+        //Gif com nome da imagem (pasta assents)
+        gif = "vela-gif-13.gif";
+
         //Colocar Gif (Set Gif)
         try{
-            InputStream inputStream = getAssets().open("vela-gif-13.gif");
+            InputStream inputStream = getAssets().open(gif);
             byte[] bytes = IOUtils.toByteArray(inputStream);
             gifImageView.setBytes(bytes);
             gifImageView.startAnimation();
@@ -52,6 +47,24 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException ex){
 
         }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gif = "fire.gif";
+
+                try{
+                    InputStream inputStream = getAssets().open(gif);
+                    byte[] bytes = IOUtils.toByteArray(inputStream);
+                    gifImageView.setBytes(bytes);
+                    gifImageView.startAnimation();
+                }
+                catch (IOException ex1){
+
+                }
+            }
+        });
 
 
     }
