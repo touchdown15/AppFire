@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,24 +49,111 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
         switch (tempo){
-            case 4:
+            case 6:
 
-                gif = "Fire3hp.gif";
+                gif = "Fire6hp.gif";
                 try{
                     titulo = "Cuide da chama!";
-                    texto = "A chama estar alta, mantenha ela assim!";
+                    texto = "A chama está alta, mantenha ela assim!";
 
                     //Teste metodo
+
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
                     mBuilder = mBuilder.setContentTitle(titulo);
                     mBuilder = mBuilder.setContentText(texto);
-                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher_ress);
+                    mBuilder = mBuilder.setAutoCancel(true);
+                    mBuilder = mBuilder.setWhen(System.currentTimeMillis());
+                    mBuilder = mBuilder.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                            R.mipmap.ic_launcher_ress));
+                    mBuilder = mBuilder.setVibrate(new long[] { 1000, 1000 });
                     mBuilder = mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder = mBuilder.setContentIntent(resultPendingIntent);
 
 
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                     notificationManager.notify(mNotificationId, mBuilder.build());
                     //Fim teste metodo
+
+                    InputStream inputStream = getAssets().open(gif);
+                    byte[] bytes = IOUtils.toByteArray(inputStream);
+                    gifImageView.setBytes(bytes);
+                    gifImageView.startAnimation();
+                }
+                catch (IOException ex){
+
+                }
+                break;
+
+            case 5:
+
+                gif = "Fire5hp.gif";
+                try{
+                    titulo = "Cuide da chama 2!";
+                    texto = "A chama está se apagando, mantenha a chama alta!";
+
+                    //Teste metodo
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    mBuilder = mBuilder.setContentTitle(titulo);
+                    mBuilder = mBuilder.setContentText(texto);
+                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher_ress);
+                    mBuilder = mBuilder.setAutoCancel(true);
+                    mBuilder = mBuilder.setWhen(System.currentTimeMillis());
+                    mBuilder = mBuilder.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                            R.mipmap.ic_launcher_ress));
+                    mBuilder = mBuilder.setVibrate(new long[] { 1000, 1000 });
+                    mBuilder = mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder = mBuilder.setContentIntent(resultPendingIntent);
+
+
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    notificationManager.notify(mNotificationId, mBuilder.build());
+                    //Fim teste metodo
+
+                    InputStream inputStream = getAssets().open(gif);
+                    byte[] bytes = IOUtils.toByteArray(inputStream);
+                    gifImageView.setBytes(bytes);
+                    gifImageView.startAnimation();
+                }
+                catch (IOException ex){
+
+                }
+                break;
+
+            case 4:
+
+                gif = "Fire4hp.gif";
+                try{
+                    titulo = "Cuide da chama 3!";
+                    texto = "A chama está quase no fim, não deixe ela apagar!";
+
+                    //Teste metodo
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    mBuilder = mBuilder.setContentTitle(titulo);
+                    mBuilder = mBuilder.setContentText(texto);
+                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher_ress);
+                    mBuilder = mBuilder.setAutoCancel(true);
+                    mBuilder = mBuilder.setWhen(System.currentTimeMillis());
+                    mBuilder = mBuilder.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                            R.mipmap.ic_launcher_ress));
+                    mBuilder = mBuilder.setVibrate(new long[] { 1000, 1000 });
+                    mBuilder = mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder = mBuilder.setContentIntent(resultPendingIntent);
+
+
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    notificationManager.notify(mNotificationId, mBuilder.build());
+                    //Fim teste metodo
+
 
                     InputStream inputStream = getAssets().open(gif);
                     byte[] bytes = IOUtils.toByteArray(inputStream);
@@ -79,22 +167,32 @@ public class MainActivity extends AppCompatActivity {
 
             case 3:
 
-                gif = "Fire2hp.gif";
+                gif = "Fire3hp.gif";
                 try{
-                    titulo = "Cuide da chama 2!";
-                    texto = "A chama estar se apagando, mantenha a chama alta!";
+                    titulo = "Cuide da chama 3!";
+                    texto = "A chama está quase no fim, não deixe ela apagar!";
 
                     //Teste metodo
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
                     mBuilder = mBuilder.setContentTitle(titulo);
                     mBuilder = mBuilder.setContentText(texto);
-                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher_ress);
+                    mBuilder = mBuilder.setAutoCancel(true);
+                    mBuilder = mBuilder.setWhen(System.currentTimeMillis());
+                    mBuilder = mBuilder.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                            R.mipmap.ic_launcher_ress));
+                    mBuilder = mBuilder.setVibrate(new long[] { 1000, 1000 });
                     mBuilder = mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder = mBuilder.setContentIntent(resultPendingIntent);
 
 
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                     notificationManager.notify(mNotificationId, mBuilder.build());
                     //Fim teste metodo
+
 
                     InputStream inputStream = getAssets().open(gif);
                     byte[] bytes = IOUtils.toByteArray(inputStream);
@@ -108,19 +206,28 @@ public class MainActivity extends AppCompatActivity {
 
             case 2:
 
-                gif = "Fire1hp.gif";
+                gif = "Fire2hp.gif";
                 try{
                     titulo = "Cuide da chama 3!";
-                    texto = "A chama estar quase no fim, não deixe ela apagar!";
+                    texto = "A chama está quase no fim, não deixe ela apagar!";
 
                     //Teste metodo
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
                     mBuilder = mBuilder.setContentTitle(titulo);
                     mBuilder = mBuilder.setContentText(texto);
-                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher_ress);
+                    mBuilder = mBuilder.setAutoCancel(true);
+                    mBuilder = mBuilder.setWhen(System.currentTimeMillis());
+                    mBuilder = mBuilder.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                            R.mipmap.ic_launcher_ress));
+                    mBuilder = mBuilder.setVibrate(new long[] { 1000, 1000 });
                     mBuilder = mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder = mBuilder.setContentIntent(resultPendingIntent);
 
 
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                     notificationManager.notify(mNotificationId, mBuilder.build());
                     //Fim teste metodo
@@ -138,19 +245,28 @@ public class MainActivity extends AppCompatActivity {
 
             default:
 
-                gif = "Fire0hp.gif";
+                gif = "Fire1hp.gif";
                 try{
                     titulo = "Cuide da chama 4!";
                     texto = "A chama se apagou :(";
 
                     //Teste metodo
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
                     mBuilder = mBuilder.setContentTitle(titulo);
                     mBuilder = mBuilder.setContentText(texto);
-                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                    mBuilder = mBuilder.setSmallIcon(R.mipmap.ic_launcher_ress);
+                    mBuilder = mBuilder.setAutoCancel(true);
+                    mBuilder = mBuilder.setWhen(System.currentTimeMillis());
+                    mBuilder = mBuilder.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                            R.mipmap.ic_launcher_ress));
+                    mBuilder = mBuilder.setVibrate(new long[] { 1000, 1000 });
                     mBuilder = mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    mBuilder = mBuilder.setContentIntent(resultPendingIntent);
 
 
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);;
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                     notificationManager.notify(mNotificationId, mBuilder.build());
                     //Fim teste metodo
@@ -182,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(progressBar.VISIBLE);
 
         //Metodo com gif(pasta: assents)
-        tempo = 4;
+        tempo = 6;
         changeGif(tempo);
 
         //Channel para notificações das versões 27+
@@ -192,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tempo = 4;
+                tempo = 6;
                 changeGif(tempo);
             }
         });
@@ -212,28 +328,6 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(runnableCode, 60000);
         }
     };
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void createNotificationChannel(){
 
