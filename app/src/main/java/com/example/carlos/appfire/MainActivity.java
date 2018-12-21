@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
                 gif = "Fire6hp.gif";
                 try{
-                    titulo = "Cuide da chama!";
-                    texto = "A chama está alta, mantenha ela assim!";
+                    titulo = "Mantenha a chama acesa!";
+                    texto = "“Peçam, e será dado” Mt 7.7 a";
 
                     //Teste metodo
 
@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
                 gif = "Fire5hp.gif";
                 try{
-                    titulo = "Cuide da chama 2!";
-                    texto = "A chama está se apagando, mantenha a chama alta!";
+                    titulo = "Não deixe a chama apagar!";
+                    texto = "“Perceverai na oração” - Cl 4.2";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
                 gif = "Fire4hp.gif";
                 try{
-                    titulo = "Cuide da chama 3!";
-                    texto = "A chama está quase no fim, não deixe ela apagar!";
+                    titulo = "Não deixe a chama apagar!";
+                    texto = "“Dediquem-se à oração” Cl 4:2 a";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -169,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
 
                 gif = "Fire3hp.gif";
                 try{
-                    titulo = "Cuide da chama 3!";
-                    texto = "A chama está quase no fim, não deixe ela apagar!";
+                    titulo = "Não deixe a chama apagar!";
+                    texto = "“Orem continuamente”  Ts: 5-17";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -208,8 +208,8 @@ public class MainActivity extends AppCompatActivity {
 
                 gif = "Fire2hp.gif";
                 try{
-                    titulo = "Cuide da chama 3!";
-                    texto = "A chama está quase no fim, não deixe ela apagar!";
+                    titulo = "Não deixe a chama apagar!";
+                    texto = "“Orai sem desanimar” - Lc 18.1";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -247,8 +247,8 @@ public class MainActivity extends AppCompatActivity {
 
                 gif = "Fire1hp.gif";
                 try{
-                    titulo = "Cuide da chama 4!";
-                    texto = "A chama se apagou :(";
+                    titulo = "Sua chama apagou!";
+                    texto = "“Vigiem, pois não sabeis o dia nem a hora!” Mt 25:13";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
