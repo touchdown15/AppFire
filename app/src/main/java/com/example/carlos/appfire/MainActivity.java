@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 gif = "Fire6hp.gif";
                 try{
                     titulo = "Mantenha a chama acesa!";
-                    texto = "“Peçam, e será dado” Mt 7.7 a";
+                    texto = "“Peçam, e será dado” Mt 7:7a";
 
                     //Teste metodo
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 gif = "Fire5hp.gif";
                 try{
                     titulo = "Não deixe a chama apagar!";
-                    texto = "“Perceverai na oração” - Cl 4.2";
+                    texto = "“Orem no Espírito em todas as ocasiões” Ef 6:18";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 gif = "Fire4hp.gif";
                 try{
                     titulo = "Não deixe a chama apagar!";
-                    texto = "“Dediquem-se à oração” Cl 4:2 a";
+                    texto = "“Dediquem-se à oração” Cl 4:2a";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -170,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 gif = "Fire3hp.gif";
                 try{
                     titulo = "Não deixe a chama apagar!";
-                    texto = "“Orem continuamente”  Ts: 5-17";
+                    texto = "“Orem continuamente” Ts: 5-17";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -209,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 gif = "Fire2hp.gif";
                 try{
                     titulo = "Não deixe a chama apagar!";
-                    texto = "“Orai sem desanimar” - Lc 18.1";
+                    texto = "“Orai sem desanimar” Lc 18:1";
 
                     //Teste metodo
                     Intent resultIntent = new Intent(this, MainActivity.class);
@@ -318,6 +319,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+
+            WallpaperManager wallpaper = WallpaperManager.getInstance(getApplicationContext());
+            try {
+
+                wallpaper.setResource(+ R.drawable.papel_de_parede);
+
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
     //Código de repetição
     private Runnable runnableCode = new Runnable() {
         @Override
@@ -325,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
             changeGif(tempo);
             tempo--;
             // Tempo de repetição
-            handler.postDelayed(runnableCode, 60000);
+            handler.postDelayed(runnableCode, 14400000);
         }
     };
 
