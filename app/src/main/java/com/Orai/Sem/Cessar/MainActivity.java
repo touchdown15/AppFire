@@ -1,5 +1,6 @@
 package com.Orai.Sem.Cessar;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,12 +20,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 
+import com.Orai.Sem.Cessar.Service.Services;
 import com.felipecsl.gifimageview.library.GifImageView;
 
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static android.app.Notification.VISIBILITY_PUBLIC;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,8 +41,10 @@ public class MainActivity extends AppCompatActivity {
     private GifImageView gifImageView;
     private ProgressBar progressBar;
     private String gif;
-    Handler handler = new Handler();
+    //Handler handler = new Handler();
     private int tempo;
+
+    Timer t = new Timer();
 
     //Método com as trocas de gifs e mensagem
     private void changeGif (int tempo){
@@ -80,11 +89,16 @@ public class MainActivity extends AppCompatActivity {
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     gifImageView.setBytes(bytes);
                     gifImageView.startAnimation();
+
+                    /*new
+                    this.tempo--;*/
+
                 }
                 catch (IOException ex){
 
                 }
                 break;
+
 
             case 5:
 
@@ -118,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     gifImageView.setBytes(bytes);
                     gifImageView.startAnimation();
+
+                    /*new
+                    this.tempo--;*/
                 }
                 catch (IOException ex){
 
@@ -157,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     gifImageView.setBytes(bytes);
                     gifImageView.startAnimation();
+
+                    /*new
+                    this.tempo--;*/
                 }
                 catch (IOException ex){
 
@@ -196,6 +216,9 @@ public class MainActivity extends AppCompatActivity {
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     gifImageView.setBytes(bytes);
                     gifImageView.startAnimation();
+
+                    /*new
+                    this.tempo--;*/
                 }
                 catch (IOException ex){
 
@@ -235,6 +258,9 @@ public class MainActivity extends AppCompatActivity {
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     gifImageView.setBytes(bytes);
                     gifImageView.startAnimation();
+
+                    /*new
+                    this.tempo--;*/
                 }
                 catch (IOException ex){
 
@@ -274,6 +300,9 @@ public class MainActivity extends AppCompatActivity {
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     gifImageView.setBytes(bytes);
                     gifImageView.startAnimation();
+
+                    /*new
+                    this.tempo--;*/
                 }
                 catch (IOException ex){
 
@@ -302,6 +331,30 @@ public class MainActivity extends AppCompatActivity {
         //Channel para notificações das versões 27+
         createNotificationChannel();
 
+        //Start service using AlarmManager
+        /*Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 10);
+
+        Intent intent = new Intent(this, Services.class);
+
+        PendingIntent pintent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+                60000, pintent);
+
+        startService(new Intent(getBaseContext(), Services.class));*/
+
+        //Set the schedule function and rate
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                changeGif(tempo);
+                tempo--;
+            }
+        },0,3600000);
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Executar o código de repetição por tempo
-        handler.post(runnableCode);
+        //handler.post(runnableCode);
 
     }
 
@@ -349,17 +402,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    //Código de repetição
+    /*Código de repetição
     private Runnable runnableCode = new Runnable() {
         @Override
         public void run() {
             changeGif(tempo);
             tempo--;
             // Tempo de repetição
-            handler.postDelayed(runnableCode, 14400000);
+            handler.postDelayed(runnableCode, 60000);
         }
-    };
+    };*/
 
     private void createNotificationChannel(){
 

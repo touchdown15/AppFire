@@ -25,6 +25,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop">
         </activity>
+        <service
+            android:name="com.Orai.Sem.Cessar.Service.Services"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
