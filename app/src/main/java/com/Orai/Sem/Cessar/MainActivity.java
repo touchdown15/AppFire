@@ -53,8 +53,10 @@ public class MainActivity extends AppCompatActivity {
     private long fiveMinutes;
     private long currentTimeAlarm;
 
-    private int tempoTeste;
-    private int testeTempoAdd;
+    private int tempoTesteHora;
+    private int tempoTesteMin;
+    private int tempoTesteAddHora;
+    private int testeTempoAddMin;
 
     //Método com as trocas de gifs e mensagem
     private void changeGif (int tempo){
@@ -375,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         currentTime = System.currentTimeMillis();
-        fiveMinutes = 7200000;
+        fiveMinutes = 14400000;
 
         currentTimeAlarm = currentTime + fiveMinutes;
         //long currentTime = System.currentTimeMillis();
@@ -440,19 +442,31 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         currentTime = System.currentTimeMillis();
-        tempoTeste = (int) ((currentTime / (1000*60)) % 60);
-        testeTempoAdd = (int) ((currentTimeAlarm  / (1000*60)) % 60);
 
-        if(tempoTeste == testeTempoAdd || (tempoTeste+1) == testeTempoAdd){
+        tempoTesteHora = (int) ((currentTime / (1000*60*60)) % 24);
+        tempoTesteMin = (int) ((currentTime / (1000*60)) % 60);
+
+        tempoTesteAddHora = (int) ((currentTimeAlarm / (1000*60*60)) % 24);
+        testeTempoAddMin = (int) ((currentTimeAlarm  / (1000*60)) % 60);
+
+        if( ((tempoTesteHora == tempoTesteAddHora) && (tempoTesteMin == testeTempoAddMin)) ||
+                ( (tempoTesteHora == tempoTesteAddHora) && ((tempoTesteMin+1) == testeTempoAddMin) ) ){
+
             tempo--;
             changeGif(tempo);
             currentTimeAlarm = currentTimeAlarm + fiveMinutes;
-        }
 
+        }
 
     }
 
+    /*@Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+        alarmManager.cancel(pendingIntent);
+
+    }*/
 
     /*@Override
     protected void onPause() {
