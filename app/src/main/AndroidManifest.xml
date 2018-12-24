@@ -29,6 +29,7 @@
             android:name="com.Orai.Sem.Cessar.Service.Services"
             android:enabled="true"
             android:exported="true" />
+        <receiver android:name=".Service.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

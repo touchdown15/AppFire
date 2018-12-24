@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -19,7 +20,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.Orai.Sem.Cessar.Service.AlarmReceiver;
 import com.Orai.Sem.Cessar.Service.Services;
 import com.felipecsl.gifimageview.library.GifImageView;
 
@@ -44,7 +47,14 @@ public class MainActivity extends AppCompatActivity {
     //Handler handler = new Handler();
     private int tempo;
 
-    Timer t = new Timer();
+    //Timer t = new Timer();
+
+    private long currentTime;
+    private long fiveMinutes;
+    private long currentTimeAlarm;
+
+    private int tempoTeste;
+    private int testeTempoAdd;
 
     //Método com as trocas de gifs e mensagem
     private void changeGif (int tempo){
@@ -346,13 +356,36 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(getBaseContext(), Services.class));*/
 
         //Set the schedule function and rate
-        t.scheduleAtFixedRate(new TimerTask() {
+        /*t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 changeGif(tempo);
                 tempo--;
             }
-        },0,3600000);
+        },0,1800000);*/
+
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this, MainActivity.class);
+        //Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+
+        //alarmIntent.putExtra("tempo", tempo);
+
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        currentTime = System.currentTimeMillis();
+        fiveMinutes = 7200000;
+
+        currentTimeAlarm = currentTime + fiveMinutes;
+        //long currentTime = System.currentTimeMillis();
+        //long fiveMinutes = 120000;
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                currentTimeAlarm,
+                fiveMinutes,
+                pendingIntent);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -366,6 +399,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Executar o código de repetição por tempo
         //handler.post(runnableCode);
+
 
     }
 
@@ -401,9 +435,56 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    /*Código de repetição
-    private Runnable runnableCode = new Runnable() {
+        currentTime = System.currentTimeMillis();
+        tempoTeste = (int) ((currentTime / (1000*60)) % 60);
+        testeTempoAdd = (int) ((currentTimeAlarm  / (1000*60)) % 60);
+
+        if(tempoTeste == testeTempoAdd || (tempoTeste+1) == testeTempoAdd){
+            tempo--;
+            changeGif(tempo);
+            currentTimeAlarm = currentTimeAlarm + fiveMinutes;
+        }
+
+
+    }
+
+
+
+    /*@Override
+    protected void onPause() {
+        super.onPause();
+
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                changeGif(tempo);
+                tempo--;
+            }
+        },300000,300000);
+
+    }*/
+
+    /*@Override
+    public void onResume(){
+        super.onResume();
+
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                changeGif(tempo);
+                tempo--;
+            }
+        },0,900000);
+
+    }*/
+
+
+    //Código de repetição
+    /*private Runnable runnableCode = new Runnable() {
         @Override
         public void run() {
             changeGif(tempo);
