@@ -8,6 +8,7 @@ import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final String CHANNEL_ID = "personal_notifications";
     private final int mNotificationId= 001;
+    public static final String PREFS_NAME = "PreferenciasOrai1";
+    public static final String PREFS_NAME2 = "PreferenciasOrai2";
+
+    private boolean alarmLigado;
 
     private GifImageView gifImageView;
     private ProgressBar progressBar;
@@ -336,8 +341,57 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         progressBar.setVisibility(progressBar.VISIBLE);
 
+        //SharedPref para guardar Tempo (chama)
+        SharedPreferences sharedPrefs = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor ed;
+        if(!sharedPrefs.contains("initialized")){
+            ed = sharedPrefs.edit();
+
+            //Indicate that the default shared prefs have been set
+            ed.putBoolean("initialized", true);
+
+            //Set some default shared pref
+            ed.putInt("tempo", 6);
+
+            ed.putBoolean("alarmOn", true);
+
+            ed.commit();
+
+        }
+
+        tempo = sharedPrefs.getInt("tempo", 0);
+
+        SharedPreferences sharedPrefs2 = getSharedPreferences(PREFS_NAME2, 0);
+        SharedPreferences.Editor ed2;
+
+        if(!sharedPrefs2.contains("alarmOn")){
+
+            ed2 = sharedPrefs2.edit();
+
+            ed2.putBoolean("alarmOn", true);
+
+            AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+            Intent intent = new Intent(this, MainActivity.class);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+            currentTime = System.currentTimeMillis();
+            fiveMinutes = 14400000;
+
+            currentTimeAlarm = currentTime + fiveMinutes;
+            alarmManager.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    currentTimeAlarm,
+                    fiveMinutes,
+                    pendingIntent);
+
+            ed2.commit();
+
+        }
+
         //Metodo com gif(pasta: assents)
-        tempo = 6;
+        //tempo = 6;
+
         changeGif(tempo);
 
         //Channel para notificações das versões 27+
@@ -367,7 +421,18 @@ public class MainActivity extends AppCompatActivity {
         },0,1800000);*/
 
 
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmLigado = sharedPrefs2.getBoolean("alarmOn", false);
+
+        if (alarmLigado){
+
+            currentTime = System.currentTimeMillis();
+            fiveMinutes = 14400000;
+
+            currentTimeAlarm = currentTime;
+
+        }
+
+        /*AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, MainActivity.class);
         //Intent alarmIntent = new Intent(this, AlarmReceiver.class);
 
@@ -377,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         currentTime = System.currentTimeMillis();
-        fiveMinutes = 14400000;
+        fiveMinutes = 120000;
 
         currentTimeAlarm = currentTime + fiveMinutes;
         //long currentTime = System.currentTimeMillis();
@@ -386,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
                 AlarmManager.RTC_WAKEUP,
                 currentTimeAlarm,
                 fiveMinutes,
-                pendingIntent);
+                pendingIntent);*/
 
 
 
@@ -396,6 +461,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 tempo = 6;
                 changeGif(tempo);
+
             }
         });
 
@@ -404,6 +470,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    /*public boolean CheckAlertService(Context context)
+    {
+        Intent i = new Intent(context, MainActivity.class);
+        Boolean alarmup=(PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_NO_CREATE)!=null);
+        return alarmup;
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -458,6 +531,17 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
+    }
+
+    protected void onStop(){
+        super.onStop();
+
+        // Gravando dados na saída
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("tempo", tempo );
+        editor.commit();
     }
 
     /*@Override
